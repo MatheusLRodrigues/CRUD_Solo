@@ -1,10 +1,9 @@
-# CRUD\_Solo
+CRUD_SOLO
 
-Projeto CRUD basico utilizando SpringApplication e MongoDB |  Sem auxilio externo
+# Overview
+
+CRUD_Solo is a straightforward backend project built with Spring Boot and MongoDB, designed to streamline the development of RESTful APIs and data management systems. It serves as an ideal foundation for learning, prototyping, or building scalable backend services.
 
 
-
-
-
-Utilizando este projeto para começar minha carreira em DEV BackEnd em Java, nesse projeto irei fazer um CRUD básico para melhorar meu conhecimento e minhas habilidades em desenvolvimento. 
-
+Programming Language: Java
+Package Manager: Maven
