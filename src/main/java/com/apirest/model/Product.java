@@ -2,6 +2,7 @@ package com.apirest.model;
 
 
 import com.apirest.enume.Category;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
@@ -17,13 +18,13 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @Column(columnDefinition = "name")
+    @JsonProperty("name")
     private String productName;
 
-    @Column(columnDefinition = "description")
+    @JsonProperty("description")
     private String productDescription;
 
-    @Column(columnDefinition = "category")
+    @JsonProperty("category")
     @Enumerated(EnumType.STRING)
     private Category category;
 

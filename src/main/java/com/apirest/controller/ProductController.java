@@ -27,6 +27,7 @@ public class ProductController {
         return productServices.findById(id);
     }
 
+
     @PostMapping
     public Product createProduct(@RequestBody Product product){
         return productServices.saveProduct(product);
@@ -41,7 +42,4 @@ public class ProductController {
     public void deleteProduct(@PathVariable String id){
         productServices.deleteProduct(id);
     }
-
-
-
 }
