@@ -1,9 +1,13 @@
 package com.apirest.controller;
 
+import com.apirest.model.FileMetaData;
 import com.apirest.services.FileStorageServices;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +28,11 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/api/files")
 public class FileStorageController {
+
+    @Autowired
+    @Qualifier("imagesMongoTemplate")
+    private MongoTemplate imagesDb;
+
     private final Path fileStorageLocation;
 
     public FileStorageController(FileStorageServices fileStorageServices) {
@@ -37,6 +46,15 @@ public class FileStorageController {
         try {
             Path targetLocation = fileStorageLocation.resolve(fileName);
             file.transferTo(targetLocation);
+
+
+            FileMetaData metaData = new FileMetaData();
+            metaData.setFileName(fileName);
+            metaData.setContentType(file.getContentType());
+            metaData.setSize(file.getSize());
+            metaData.setPath(targetLocation.toString());
+
+
 
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/files/download").path(fileName).toUriString();
             return ResponseEntity.ok("Upload completed! Download link: " + fileDownloadUri);
