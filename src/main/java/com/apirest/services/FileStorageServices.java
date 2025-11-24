@@ -29,12 +29,6 @@ public class FileStorageServices {
         fileRepo.deleteById(id);
     }
 
-
-
-
-
-
-
 //    private String uploadDir;
 //
 //    public String getUploadDir() {

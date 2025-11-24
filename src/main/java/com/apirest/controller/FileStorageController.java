@@ -4,10 +4,8 @@ import com.apirest.model.FileMetaData;
 import com.apirest.services.FileStorageServices;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,22 +19,18 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/api/files")
+@RequestMapping("/files")
 public class FileStorageController {
 
     @Autowired
-    @Qualifier("imagesMongoTemplate")
-    private MongoTemplate imagesDb;
-
     private final Path fileStorageLocation;
 
     public FileStorageController(FileStorageServices fileStorageServices) {
-        this.fileStorageLocation = Paths.get(fileStorageServices.getUploadDir()).toAbsolutePath().normalize();
+        this.fileStorageLocation = (Path) fileStorageServices;
     }
 
     @PostMapping("/upload")
