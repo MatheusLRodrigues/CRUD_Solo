@@ -2,7 +2,6 @@ package com.apirest.controller;
 
 import com.apirest.services.FileStorageServices;
 import com.mongodb.client.gridfs.model.GridFSFile;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -29,21 +28,18 @@ public class FileStorageController {
     }
 
     @GetMapping("/download/{id}")
-    public ResponseEntity<?> downloadImage(@PathVariable String id){
-        try{
+    public ResponseEntity<?> downloadImage(@PathVariable String id) {
+        try {
             GridFSFile file = fileStorageServices.getFile(id);
 
-            if(file == null){
+            if (file == null) {
                 return ResponseEntity.badRequest().body("No Image found");
             }
             byte[] data = fileStorageServices.downloadImage(id);
 
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-                    .contentType(MediaType.parseMediaType(file.getMetadata().getString("type")))
-                    .body(data);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").contentType(MediaType.parseMediaType(file.getMetadata().getString("type"))).body(data);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }

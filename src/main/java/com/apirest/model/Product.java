@@ -3,9 +3,9 @@ package com.apirest.model;
 
 import com.apirest.enume.Category;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,7 +15,6 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @JsonProperty("name")
@@ -25,7 +24,6 @@ public class Product implements Serializable {
     private String productDescription;
 
     @JsonProperty("category")
-    @Enumerated(EnumType.STRING)
     private Category category;
 
     public Product(){
